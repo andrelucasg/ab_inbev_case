@@ -41,11 +41,11 @@ Olá pessoal,
        - Variável global criada responsável por criar a sessão Spark que será utilizada no decorrer do código;
        - Define os JARS separadamente para serem configurados na sessão quando criada;
        - Na criação da sessão spark, as seguintes configurações são realizadas:
-             - .config("spark.jars", ",".join(jars)): JARS que serão usados na sessão;
-             - .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension"): Configuração necessária para usar Delta;
-             - .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog"): Configuração necessária para usar Delta;
-             - .config("fs.azure.account.key.storagecaseabinbev.dfs.core.windows.net", "key"): Chave da conta Azure;
-             - .config("fs.azure.sas.fixed.token.storagecaseabinbev.dfs.core.windows.net", "sas"): Chave SAS;
+         - .config("spark.jars", ",".join(jars)): JARS que serão usados na sessão;
+         - .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension"): Configuração necessária para usar Delta;
+         - .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog"): Configuração necessária para usar Delta;
+         - .config("fs.azure.account.key.storagecaseabinbev.dfs.core.windows.net", "key"): Chave da conta Azure;
+         - .config("fs.azure.sas.fixed.token.storagecaseabinbev.dfs.core.windows.net", "sas"): Chave SAS;
 
    - 3.3 global container_client:
        - Variável global criada responsável por configurar o acesso ao container da azure
