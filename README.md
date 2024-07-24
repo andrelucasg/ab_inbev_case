@@ -48,4 +48,36 @@ Olá pessoal,
          - .config("fs.azure.sas.fixed.token.storagecaseabinbev.dfs.core.windows.net", "sas"): Chave SAS;
 
    - 3.3 global container_client:
-       - Variável global criada responsável por configurar o acesso ao container da azure
+       - Variável global criada responsável por configurar o acesso ao container da azure;
+       - Cria a variável "azure_path_with_sas" que é usada no restante do código para ler e gravar na Azure;
+
+   - 3.4 def azure_storage:
+      - Função criada responsável por toda interação de leitura e escrita na Azure;
+      - Recebe os seguintes parâmetros:
+        - action: "upload" para enviar dado para Azure; "read" para fazer leitura na Azure;
+        - data: base/dataframe de dados;
+        - df_schema: schema se houver;
+        - blob_prefix: qual o blob/diretório que a interação irá acontecer seja para leitura ou gravação (podendo ser bronze, silver e gold).
+
+   - 3.4.1 def send_storage:
+      - Função internalizada na função azure_storage;
+      - Caso a action chamada tenha sido "upload", a função é acionada;
+      - Verifica o "blob_prefix". Se for "bronze", cria-se o dataframe spark e salva em formato delta diretamente no blob "bronze"; Se for "silver", salva em formato delta no blob "silver". Se for "gold", salva em formato delta no blob "gold".
+    
+   - 3.4.2 def read_from_storage:
+      - Função internalizada na função azure_storage;
+      - Caso a action chamada tenha sido "read", a função é acionada;
+      - Dependendo do "blob_prefix" acionado, faz a leitura e retorna o dataframe lido. Se for "bronze", faz a leitura do blob que estão os arquivos delta da camada "bronze" e retorna o dataframe. Para "silver" e "gold", segue o mesmo padrão.
+
+   - 3.5 def raw_def:
+      - Função responsável por consultar e extrair os dados da API;
+      - Retorna os dados coletados;
+    
+   - 3.6 def bronze_def:
+      - Função responsável pela camada bronze;
+      - Faz xpull do resultado da função raw_def;
+      - Define o schema manualmente;
+      - Chama a função azure_storage com o action definido para "upload" e blob_prefix "bronze". Ou seja, faz o upload/escrita do dataframe delta na camada bronze;
+
+   - 3.7 def silver_def:
+      - 
