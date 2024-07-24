@@ -22,4 +22,5 @@ Olá pessoal,
     - Acredito que construiría algo parecido com o que montei onde trabalho. Uso o Power Automate para atualizar as execuções diárias diretamente no Teams. Por ser mais rápido e direto que e-mail, o retorno automático via Teams acaba sendo bem efetivo.
  
 - Fluxograma:
+
 ![Output - Pipeline (1)](https://github.com/user-attachments/assets/8653a2f9-8b09-4525-bffa-f109c10406db)
