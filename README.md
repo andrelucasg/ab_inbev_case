@@ -8,7 +8,7 @@ Olá pessoal,
     - Mesmo não sendo obrigatório, resolvi seguir com Docker pelo desafio e pelo aviso no documento de que ganharia "pontos extras".
     - Portanto, peço perdão se mencionar alguma nomenclatura incorreta ou padrão do Docker/Airflow que eu tenha feito incorretamente.
 
-- Ao Projeto:
+- Projeto:
     - Como mencionado nas considerações iniciais, resolvi seguir com Docker e Airflow. Além deles, decidi por seguir o código com Pyspark e utilizar Azure como plataforma em nuvem.
     - De maneira bem generalizada (vou detalhar logo abaixo), são 4 tasks:
         - Raw: Faz a consulta na api e armazena o JSON retornado;
