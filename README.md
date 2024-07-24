@@ -80,4 +80,35 @@ Olá pessoal,
       - Chama a função azure_storage com o action definido para "upload" e blob_prefix "bronze". Ou seja, faz o upload/escrita do dataframe delta na camada bronze;
 
    - 3.7 def silver_def:
-      - 
+      - Função responsável pela camada silver;
+      - Chama a função azure_storage com o action definido para "read" e blob_prefix "bronze". Ou seja, faz a leitura do dataframe delta na camada bronze;
+      - Chama a função interna na silver get_county_info (explicação no próximo ponto) para enriquecer com a informação de "county" (condado);
+      - Chama a função interna na silver capitalize_first_letter (explicação após o ponto da get_county_info) para padronizar valores de algumas colunas;
+      - Define o schema final da camada silver;
+      - Chama a função azure_storage com o action definido para "upload" e blob_prefix "silver". Ou seja, faz a escrita do dataframe final na camada silver.
+
+   - 3.7.1 def get_county_info:
+      - Função responsável por enriquecer a camada silver com uma nova coluna "county";
+      - Utilizando a latitude e longitude, faz uma consulta com a ajuda da biblioteca geopy;
+      - É retornado um JSON com diversas informações daquela lagitude e longitude consultada;
+      - Caso houver a informação "county" no JSON retornado, ela é enriquecida na camada silver;
+
+   - 3.7.2 def capitalize_first_letter:
+      - Função responsável por padronizar os valores de algumas colunas;
+      - Se a primeira letra da coluna for minúscula, transforma em maiúscula. Caso seja uma palavra composta, funciona na segunda palavra seguida do espaço;
+    
+   - 3.8 def gold_def:
+      - Função responsável pela camada Gold;
+      - Chama a função azure_storage com o action definido para "read" e blob_prefix como "silver". Ou seja, faz a leitura da camada silver e retorna o dataframe.
+      - Realiza um agrupamento com a contagem de id's para cada "country", "state" e "brewery_type";
+      - Define o schema da camada Gold;
+      - Chama a função azure_storage com o action definido para "upload" e blob_prefix "gold". Ou seja, faz a escrita do dataframe delta na camada gold na Azure.
+
+   - 3.9 DAG:
+      - Define argumentos padrões para a DAG com um importante parâmetro. Caso haja falha, envia um e-mail;
+      - A DAG "Case_AB_Inbev" é criada com o schedule para todos os dias as 8h da manhã;
+      - 4 tasks são criadas e executadas em sequência:
+        - raw_task
+        - bronze_task
+        - silver_task
+        - gold_task
