@@ -21,6 +21,22 @@ Olá pessoal,
     - Pesquisando sobre o Airflow, gostaria de usar a funcionalidade de disparar e-mail em caso de falha. Não acho necessário disparar e-mail para tasks que rodaram com sucesso, afinal esse é o resultado esperado. Mas quando há falha, acredito que seria uma boa prática manter essa funcionalidade ativa.
     - Acredito que construiría algo parecido com o que montei onde trabalho. Uso o Power Automate para atualizar as execuções diárias diretamente no Teams. Por ser mais rápido e direto que e-mail, o retorno automático via Teams acaba sendo bem efetivo.
  
+1 - Dockerfile
+    - Instala JDK 17;
+    - Instala bibliotecas necessárias para o código;
+    - Baixa os JARS necessários para o ambiente Spark;
+    - Define o caminho correto para cada JAR;
+    - Comentário: Provavelmente existem mais JARS que o necessário aqui. Isso é devido a algumas tentativas de preparar o ambiente Spark da forma que eu queria.
+
+2 - Azure
+    - Criei uma conta na Azure com um e-mail pessoal para esse case;
+    - Após criado o Storage, criei um Container e em sequência a SAS Key para me conectar via código;
+    - Na sessão Spark, preencho as informações necessárias para a conexão (account key e sas token).
+
+3 - Código
+
 - Fluxograma:
 
 ![Output - Pipeline (1)](https://github.com/user-attachments/assets/8653a2f9-8b09-4525-bffa-f109c10406db)
+
+    3.1 - 
